@@ -1,0 +1,5 @@
+crust.dat
+Example crust over mantle model for qhaskrv program
+2 layer continental crust
+specify the number of layers then model parameters:
+  vp(km/s) vs(km/s) density(gm/cc) thickness (km)   qp     qs

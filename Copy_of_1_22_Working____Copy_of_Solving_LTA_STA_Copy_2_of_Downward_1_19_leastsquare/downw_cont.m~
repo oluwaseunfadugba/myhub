@@ -1,0 +1,64 @@
+function [s_up_n, time] = downw_cont(model_file, depth_to_go)
+
+
+model_file = 'crust.dat'; % velocity model file
+
+i = 0; depth_to_go_i = 0:2:40;%  20:2:60; %[0 40];
+
+
+p = 0.05;  % Enter the value of ray parameter
+twidth = 1.0; %
+tshift = 5.0;
+rdepth = 0.0;
+depth_to_go = depth_to_go + 0.001;
+synthfile ='waveform'; % filename for the free surface displacements
+    
+%!./rundndisp 0.05 0.0 40.01 waveform.pv waveform.ph crust.dat waveform_at_depth
+   eval(sprintf('%s%2.3f %2.3f %5.4f %s%s %s%s %s %s','!./rundndisp ',real(p), imag(p), ...
+   depth_to_go,synthfile,'.pv',synthfile,'.ph',model_file,'fad'))
+
+[time,vert]= readsac('fad.w'); 
+[time, hor] = readsac('fad.u');
+[time,p_up] = readsac('fad.pup');
+[time,p_down] = readsac('fad.pdn');
+[time,s_up] = readsac('fad.sup');
+[time,s_down] = readsac('fad.sdn');
+[time,sig] = readsac('fad.sig');
+[time,tau] = readsac('fad.tau');
+
+% The next thing is to get the noncausal energy of the S-up waveform.
+% The first if to determine th position of the P-wave arrival.
+
+
+
+
+
+
+
+
+% I need to know the value of the index to get the correct noncausal energy
+ index = STA_LTA(p_up);
+ 
+ 
+ 
+ 
+ 
+ 
+ % Noncausal
+ p_up_n = sum(abs(p_up(1:index)));
+  p_down_n = sum(abs(p_down(1:index)));
+   s_up_n = sum(abs(s_up(1:index)));
+    s_down_n = sum(abs(s_down(1:index)));
+     hor_n = sum(abs(hor(1:index)));
+ vert_n = sum(abs(vert(1:index)));
+ 
+ % Energy
+p_up_e = sum(abs(p_up));
+p_down_e = sum(abs(p_down));
+s_up_e = sum(abs(s_up));
+s_down_e = sum(abs(s_down));
+hor_e = sum(abs(hor));
+vert_e = sum(abs(vert));
+
+
+

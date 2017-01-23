@@ -1,0 +1,73 @@
+clear all; close all; clc
+
+p = 0.05;  % Enter the value of ray parameter
+twidth = 1.0; %
+tshift = 5.0;
+rdepth = 0.0;
+model_file = 'crust.dat'; % velocity model file 
+synthfile ='waveform';
+
+
+i = 0; depth_to_go_i = 0:2:40;%  20:2:60; %[0 40];
+
+fad=1;
+
+for j = depth_to_go_i
+    i = i + 1; depth_to_go = depth_to_go_i(i)+0.0001;
+    
+%!./rundndisp 0.05 0.0 40.01 waveform.pv waveform.ph crust.dat waveform_at_depth
+   eval(sprintf('%s%2.3f %2.3f %2.3f %s%s %s%s %s %s','!./rundndisp ',real(p), imag(p), ...
+   depth_to_go,synthfile,'.pv',synthfile,'.ph',model_file,'fad'))
+  
+     
+    [time,vert(:,i)]= readsac('fad.w'); 
+    [time, hor(:,i)] = readsac('fad.u');
+    [time,p_up(:,i)] = readsac('fad.pup');
+    [time,p_down(:,i)] = readsac('fad.pdn');
+    [time,s_up(:,i)] = readsac('fad.sup');
+    [time,s_down(:,i)] = readsac('fad.sdn');
+    [time,sig(:,i)] = readsac('fad.sig');
+    [time,tau(:,i)] = readsac('fad.tau');
+    
+     
+     percent = (i/length(depth_to_go_i)) * 100; percent
+     
+     
+!rm -f fad*
+     
+
+end
+
+
+%% Plotting
+scale=1;
+
+figure (1)
+section_display(p_up,scale,depth_to_go_i',time)
+ylabel('time (sec) ','FontSize',14); xlabel('depth(km)','FontSize',14); grid MINOR; 
+title(' Upgoinging P wave with Depth','FontSize',14);
+
+figure (2)
+section_display(p_down,scale,depth_to_go_i',time)
+ylabel('time (sec) ','FontSize',14); xlabel('depth(km)','FontSize',14); grid MINOR; 
+title(' Downgoinging P wave with Depth','FontSize',14);
+
+figure (3)
+section_display(s_up,scale,depth_to_go_i',time)
+ylabel('time (sec) ','FontSize',14); xlabel('depth(km)','FontSize',14); grid MINOR; 
+title(' Upgoinging S wave with Depth','FontSize',14);
+
+figure (4)
+section_display(s_down,scale,depth_to_go_i',time)
+ylabel('time (sec) ','FontSize',14); xlabel('depth(km)','FontSize',14); grid MINOR; 
+title(' Downgoinging S wave with Depth','FontSize',14);
+
+figure (5)
+section_display(hor,scale,depth_to_go_i',time)
+ylabel('time (sec) ','FontSize',14); xlabel('depth(km)','FontSize',14); grid MINOR; 
+title(' Horizontal Displacement','FontSize',14);
+
+figure (6)
+section_display(vert,scale,depth_to_go_i',time)
+ylabel('time (sec) ','FontSize',14); xlabel('depth(km)','FontSize',14); grid MINOR; 
+title(' Vertical Displacement','FontSize',14);

@@ -1,0 +1,37 @@
+#!/bin/csh -f
+
+setenv SACAUX /usr/bin/sac/aux
+#   rundndisp   based on runqhaskrv
+#               7/06/09
+
+#  Run this script in the directory where you want data to be stored.
+
+#  Set up a crustal model file and run qhaskrv or qhaskrvc to create vertical and
+#     radial plane wave responses at the free surface.  Use these
+#     to as input to dndispvec for downward continuation of the wavefield in a model
+
+if ($#argv != 7) then
+   echo "Usage: $0 {preal pimag rdepth vertfile radfile modelfile synthfile}"
+   exit
+endif
+
+#   Data file for dndispvec
+
+echo "2048  0.05" > dnhask.in               # npts, dt
+echo $3 >> dnhask.in                        # receiver depth
+echo $1 $2>> dnhask.in                      # preal and pimag, complex ray parameter
+echo $4 >> dnhask.in                        # vertical displacement filename
+echo $5 >> dnhask.in                        # radial displacement filename
+echo $6 >> dnhask.in                        # file with earth model
+echo $7 >> dnhask.in                        # SAC file name
+
+#   Run dndispvec
+
+#/gaia/home/ifadugba/Desktop/upward/Receiver/continue/dndisp_src/dndispvec < dnhask.in > dnhask.prt
+
+/home/oluwaseun/Documents/Downward_Continuation_Proj/upward/dndisp_src/dndispvec < dnhask.in > dnhask.prt
+
+
+# Run this code with
+#  ../cshells/rundndisp 0.05 0.0 40.01 waveform.pv waveform.ph crust.dat waveform_at_depth
+

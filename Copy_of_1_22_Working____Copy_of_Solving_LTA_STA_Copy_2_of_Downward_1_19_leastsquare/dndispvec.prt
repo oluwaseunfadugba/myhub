@@ -1,0 +1,55 @@
+ npts,dt= 2048     0.050
+ ndepth, rdepth=   1    40.00100
+ mdp,mdsv,mdsh=  1  0  1
+ prayr=    0.05000 prayi=    0.00000
+waveform.pv                                                                     
+   11
+waveform.ph                                                                     
+   11
+crust.dat                                                                       
+    9
+fad                                                                             
+    3
+ npts,npv,dt,dtv=  2048  2048 0.50000E-01 0.50000E-01
+ npts,npr,dt,dtr=  2048  2048 0.50000E-01 0.50000E-01
+ from tfun2 npts,np2,nfny,delt,dt,npl 2048 2048 1024     0.050     0.050   11
+ From rhask, mtype=  2
+crust.dat                                                                       
+Example crust over mantle model for qhaskrv program                             
+2 layer continental crust                                                       
+specify the number of layers then model parameters:                             
+  vp(km/s) vs(km/s) density(gm/cc) thickness (km)   qp     qs                   
+   6.05970001       3.49850011       2.70000005       20.0000000       500.000000       250.000000    
+   6.76119995       3.90359998       2.90000010       20.0000000       500.000000       250.000000    
+  0.634630024      0.366400003       3.20000005       10.0000000       500.000000       250.000000    
+ msrc,ths1,ths2=   3     0.00100     9.99900
+ nlayer=   4
+ 0.60597E+01 0.34985E+01 0.50000E+03 0.25000E+03 0.27000E+01 0.20000E+02
+ 0.67612E+01 0.39036E+01 0.50000E+03 0.25000E+03 0.29000E+01 0.20000E+02
+ 0.63463E+00 0.36640E+00 0.50000E+03 0.25000E+03 0.32000E+01 0.99945E-03
+ 0.63463E+00 0.36640E+00 0.50000E+03 0.25000E+03 0.32000E+01 0.99990E+01
+ From psvrec, downward continuation computed
+ From sacwrt, file name=fad.u                           
+ SAC file written to disk: fad.u                                                                           
+nerr=    0
+ From sacwrt, file name=fad.w                           
+ SAC file written to disk: fad.w                                                                           
+nerr=    0
+ From sacwrt, file name=fad.sig                         
+ SAC file written to disk: fad.sig                                                                         
+nerr=    0
+ From sacwrt, file name=fad.tau                         
+ SAC file written to disk: fad.tau                                                                         
+nerr=    0
+ From sacwrt, file name=fad.pup                         
+ SAC file written to disk: fad.pup                                                                         
+nerr=    0
+ From sacwrt, file name=fad.pdn                         
+ SAC file written to disk: fad.pdn                                                                         
+nerr=    0
+ From sacwrt, file name=fad.sup                         
+ SAC file written to disk: fad.sup                                                                         
+nerr=    0
+ From sacwrt, file name=fad.sdn                         
+ SAC file written to disk: fad.sdn                                                                         
+nerr=    0
